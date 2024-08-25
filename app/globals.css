@@ -41,7 +41,7 @@
   }
 
   .carousel {
-    @apply flex flex-col-reverse h-[700px];
+    @apply flex flex-col-reverse h-[600px];
   }
 
   .carousel .control-dots {
