@@ -1,31 +1,21 @@
 import mongoose, { mongo } from "mongoose";
 
+let isConnected = false;
 
-let isConnected =false;
+export const connectToDB = async () => {
+  mongoose.set("strictQuery", true);
 
-export const connectToDB  = async ()=>{
-  mongoose.set('strictQuery',true);
+  if (!process.env.MONGO_URI) return console.log("MONGO_DB is not define");
 
-  if(!process.env.MONGO_URI) return console.log('MONGO_DB is not define');
+  if (isConnected) return console.log(` > using existing database connection `);
 
-  if(isConnected) return console.log(` > using existing database connection `)
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
 
-    try {
-        await mongoose.connect(process.env.MONGO_URI)
+    isConnected = true;
 
-        isConnected  =true;
-
-console.log('MongoDB Connected');
-
-
-
-
-    } catch (error) {
-        
-    }
-
-
-
-
-
-}
+    console.log("MongoDB Connected");
+  } catch (error) {
+    console.log(error)
+  }
+};
