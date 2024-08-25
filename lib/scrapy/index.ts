@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { extractPrice } from "../utils";
+import { extractCurrency, extractPrice } from "../utils";
 export async function scrapeAmazonProduct(url: string) {
   if (!url) {
     return;
@@ -35,15 +35,40 @@ export async function scrapeAmazonProduct(url: string) {
       $(".a-button-selected .a-color-base")
     );
     const orignalPrice = extractPrice(
-      $('#priceblock_ourprice'),
-      $('.a-price.a-text-price span.a-offscreen')
-    )
+      $("#priceblock_ourprice"),
+      $(".a-price.a-text-price span.a-offscreen")
+    );
 
-    const outOfStock = extractPrice(
-      $('#availability span').text().trim().toLowerCase() === 'currently unavailable',
-    )
+    const outOfStock =
+      $("#availability span").text().trim().toLowerCase() ===
+      "currently unavailable";
 
-    console.log({title, currentPrice,orignalPrice,outOfStock});  
+    const images =
+      $("#imgBlockFront").attr("data-a-dynamic-image") ||
+      $("#landingImage").attr("data-a-dynamic-image") ||
+      "{}";
+
+    const imageUrls = Object.keys(JSON.parse(images));
+    const currency = extractCurrency($(".a-price-symbol"));
+    const discountRate = $(".savingsPercentage").text().replace(/[-%]/g, "");
+
+    const data = {
+      url,
+      currency: currency || "$",
+      image: imageUrls[0],
+      title,
+      currentPrice: Number(currentPrice),
+      orignalPrice: Number(orignalPrice),
+      priceHistory: [],
+      discountRate: Number(discountRate),
+      category: "category",
+      reviewCount: 100,
+      stars: 4.5,
+      isOutOfStock: outOfStock,
+    };
+    console.log({
+      data,
+    });
   } catch (error: any) {
     throw new Error(`Faild to scrape product :${error.message}`);
   }
