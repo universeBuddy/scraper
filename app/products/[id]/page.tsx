@@ -1,4 +1,4 @@
-// import Modal from "@/components/Modal";
+import Modal from "@/components/Modal";
 import PriceInfoCard from "@/components/PriceInfoCard";
 import ProductCard from "@/components/ProductCard";
 import { getProductById, getSimilarProducts } from "@/lib/actions";
@@ -26,7 +26,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
           <Image
             src={product.image}
             alt={product.title}
-            width={580}
+            width={400}
             height={400}
             className="mx-auto"
           />
@@ -35,7 +35,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
         <div className="flex-1 flex flex-col">
           <div className="flex justify-between items-start gap-5 flex-wrap pb-6">
             <div className="flex flex-col gap-3">
-              <p className="text-[28px] text-secondary font-semibold">
+              <p className="text-[25px] text-secondary font-semibold">
                 {product.title}
               </p>
 
@@ -126,7 +126,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
             </div>
           </div>
 
-          <div className="my-7 flex flex-col gap-5">
+          <div className="my-5 flex flex-col gap-5">
             <div className="flex gap-5 flex-wrap">
               <PriceInfoCard
                 title="Current Price"
