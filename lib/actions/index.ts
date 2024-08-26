@@ -9,6 +9,7 @@ import { User } from "@/types";
 // import { generateEmailBody, sendEmail } from "../nodemailer";
 import Product from "../models/product-model";
 import { scrapeAmazonProduct } from "../scrapy";
+import { generateEmailBody, sendEmail } from "../nodemailer";
 
 export async function scrapeAndStoreProduct(productUrl: string) {
   if (!productUrl) return;
@@ -106,6 +107,14 @@ export async function addUserEmailToPRoduct(
     const userExists = product.users.some(
       (user: User) => user.email === userEmail
     );
+
+    if (!userExists) {
+      product.users.push({ email: userEmail });
+      await product.save();
+
+      const emailContent = generateEmailBody(product, "WELCOME");
+      await sendEmail(emailContent, [userEmail]);
+    }
   } catch (error) {
     console.log(error);
   }

@@ -1,5 +1,6 @@
 "use client";
 
+import { addUserEmailToPRoduct } from "@/lib/actions";
 import {
   Dialog,
   DialogPanel,
@@ -9,7 +10,12 @@ import {
 import Image from "next/image";
 import { FormEvent, Fragment, useState } from "react";
 
-const Modal = () => {
+interface Props{
+  productId:string,
+}
+
+
+const Modal = ({productId}:Props) => {
   let [isOpen, setIsOpen] = useState(true);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,10 +26,10 @@ const Modal = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // await addUserEmailToProduct(productId,email);
+    await addUserEmailToPRoduct(productId, email);
 
     setIsSubmitting(false);
-    setEmail('');
+    setEmail("");
     closeModal();
   };
   return (
