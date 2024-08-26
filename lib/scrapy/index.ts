@@ -77,3 +77,6 @@ export async function scrapeAmazonProduct(url: string) {
     throw new Error(`Faild to scrape product :${error.message}`);
   }
 }
+
+
+
