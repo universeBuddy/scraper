@@ -76,20 +76,36 @@ export async function getAllProducts() {
     console.log(error);
   }
 }
-export async function getSimilarProducts(productId:string) {
+export async function getSimilarProducts(productId: string) {
   try {
     connectToDB();
 
-    const currentProduct  =await Product.findById(productId)
-    
+    const currentProduct = await Product.findById(productId);
 
-    if(!currentProduct) return null;
+    if (!currentProduct) return null;
 
     const similarProduct = await Product.find({
-      _id:{ $ne: productId}
-    }).limit(3)
+      _id: { $ne: productId },
+    }).limit(3);
 
     return similarProduct;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function addUserEmailToPRoduct(
+  productId: string,
+  userEmail: string
+) {
+  try {
+    //send our frist email
+    const product = await Product.findById(productId);
+    if (!product) return;
+
+    const userExists = product.users.some(
+      (user: User) => user.email === userEmail
+    );
   } catch (error) {
     console.log(error);
   }
