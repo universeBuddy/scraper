@@ -39,7 +39,7 @@ const Modal = ({ productId }: Props) => {
       <button type="button" className="btn" onClick={openModal}>
         Track
       </button>
-
+  
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" onClose={closeModal} className="dialog-container">
           <div className="min-h-screen px-4 text-center">
