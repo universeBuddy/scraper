@@ -36,7 +36,7 @@ export async function scrapeAndStoreProduct(productUrl: string) {
         priceHistory: updatedPriceHistory,
         lowestPrice: getLowestPrice(updatedPriceHistory),
         highestPrice: getHighestPrice(updatedPriceHistory),
-        averagePrice: getAveragePrice(updatedPriceHistory),
+        // averagePrice: getAveragePrice(updatedPriceHistory),
       };
     }
 
@@ -95,7 +95,7 @@ export async function getSimilarProducts(productId: string) {
   }
 }
 
-export async function addUserEmailToPRoduct(
+export async function addUserEmailToProduct(
   productId: string,
   userEmail: string
 ) {
