@@ -1,7 +1,7 @@
 "use server"
 
 import { EmailContent, EmailProductInfo, NotificationType } from '@/types';
-import nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer' 
 
 const Notification = {
   WELCOME: 'WELCOME',
@@ -95,7 +95,7 @@ export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) =>
   const mailOptions = {
     from: 'adityarai_@outlook.com',
     to: sendTo,
-    html: emailContent.body,
+    html: emailContent.body, 
     subject: emailContent.subject,
   }
 

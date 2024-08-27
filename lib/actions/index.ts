@@ -112,7 +112,7 @@ export async function addUserEmailToProduct(
       product.users.push({ email: userEmail });
       await product.save();
 
-      const emailContent = generateEmailBody(product, "WELCOME");
+      const emailContent =  await generateEmailBody(product, "WELCOME");
       await sendEmail(emailContent, [userEmail]);
     }
   } catch (error) {

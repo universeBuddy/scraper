@@ -2,8 +2,10 @@
 
 import { FormEvent, Fragment, useState } from "react";
 import {
+  Description,
   Dialog,
   DialogPanel,
+  DialogTitle,
   Transition,
   TransitionChild,
 } from "@headlessui/react";
@@ -40,8 +42,74 @@ const Modal = ({ productId }: Props) => {
         Track
       </button>
   
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" onClose={closeModal} className="dialog-container">
+
+      <button onClick={() => setIsOpen(true)}></button>
+      <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
+        <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+          <DialogPanel className="max-w-lg space-y-4 border bg-white p-12">
+            <DialogTitle className="font-bold">Deactivate account</DialogTitle>
+            <Description>This will permanently deactivate your account</Description>
+            <p>Are you sure you want to deactivate your account? All of your data will be permanently removed.</p>
+            <form className="flex flex-col mt-5" onSubmit={handleSubmit}>
+                <label
+                  htmlFor="email"
+                  className="text-sm font-medium text-gray-700"
+                >
+                  Email address
+                </label>
+                <div className="dialog-input_container">
+                  <Image
+                    src="/assets/icons/mail.svg"
+                    alt="mail"
+                    width={18}
+                    height={18}
+                  />
+
+                  <input
+                    required
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email address"
+                    className="dialog-input"
+                  />
+                </div>
+
+                <button type="submit" className="dialog-btn">
+                  {isSubmitting ? "Submitting..." : "Track"}
+                </button>
+              </form>
+            <div className="flex gap-4">
+              <button onClick={() => setIsOpen(false)}>Cancel</button>
+              <button onClick={() => setIsOpen(false)}>Deactivate</button>
+            </div>
+          </DialogPanel>
+        </div>
+      </Dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {/* <Transition show={isOpen}>
+        <Dialog onClose={closeModal} className="dialog-container">
           <div className="min-h-screen px-4 text-center">
             <DialogPanel className="fixed inset-0" />
 
@@ -68,7 +136,7 @@ const Modal = ({ productId }: Props) => {
                     width={24}
                     height={24}
                     className="cursor-pointer"
-                    onClick={closeModal}
+                   
                   />
                 </div>
 
@@ -114,7 +182,7 @@ const Modal = ({ productId }: Props) => {
             </div>
           </div>
         </Dialog>
-      </Transition>
+      </Transition> */}
     </>
   );
 };
