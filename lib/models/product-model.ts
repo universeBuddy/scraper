@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema(
     },
     orignalPrice: {
       type: Number,
-      required: true,
+    
     },
     priceHisory: [
       {

@@ -97,7 +97,7 @@ export async function getSimilarProducts(productId: string) {
 
 export async function addUserEmailToProduct(
   productId: string,
-  userEmail: string,
+  userEmail: string
 ) {
   try {
     //send our frist email
